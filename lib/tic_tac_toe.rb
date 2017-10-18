@@ -9,7 +9,8 @@ class TicTacToe
     [0,4,8], # Down diagonal
     [2,4,6]  # Up diagonal
   ]
-  
+
   def initialize
     @board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
   end
+end
