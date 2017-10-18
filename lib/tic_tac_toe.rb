@@ -50,5 +50,63 @@ class TicTacToe
     end
   end
 
-  
+  def turn_count
+    num_turns = 0
+
+    @board.each do |member|
+      if member == "X" || member == "O"
+        num_turns += 1
+      end
+    end
+
+    num_turns
+  end
+
+  def current_player
+    turn_count % 2 == 0 ? "X" : "O"
+  end
+
+  def won?
+    WIN_COMBINATIONS.each do |win_combination|
+      windex_1 = win_combination[0]
+      windex_2 = win_combination[1]
+      windex_3 = win_combination[2]
+
+      if position_taken?(windex_1) && @board[windex_1] == @board[windex_2] && @board[windex_1] == @board[windex_3]
+        return [windex_1, windex_2, windex_3]
+      end
+    end
+
+    return false
+  end
+
+  def full?
+    @board.all? {|value| value == "X" || value == "O"}
+  end
+
+  def draw?
+    full? && !won?
+  end
+
+  def over?
+    won? || draw?
+  end
+
+  def winner
+    won? ? @board[won?[0]] : nil
+  end
+
+  def play
+    display_board
+
+    until over?
+      turn
+    end
+
+    if won?
+      return puts "Congratulations #{winner}!"
+    end
+
+    puts "Cat's Game!"
+  end
 end
